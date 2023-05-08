@@ -13,6 +13,10 @@ provider "aws" {
   region = "us-east-2"
 }
 
+# This was the old identifier for the security group. Below is the same security group, but with the new identifier.
+# resource "aws_security_group" "instance" {
+#   name = var.security_group_name
+# }
 
 resource "aws_security_group" "cluster_instance" {
   name = var.security_group_name

@@ -60,9 +60,9 @@ resource "kubernetes_service" "app" {
   }
 
   spec {
-    # type = "LoadBalancer"
+    type = "LoadBalancer"
     port {
-      port        = 5680
+      port        = 80
       target_port = var.container_port
       protocol    = "TCP"
     }
@@ -70,32 +70,32 @@ resource "kubernetes_service" "app" {
   }
 }
 
-resource "kubernetes_ingress_v1" "example" {
-  metadata {
-    name = "example"
-    annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
-    }
-  }
-  spec {
-    rule {
-      http {
-        path {
-          path = "/"
-          path_type = "Prefix"
-          backend {
-            service {
-              name = kubernetes_service.app.metadata.0.name
-              port {
-                number = 5680
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+# resource "kubernetes_ingress_v1" "example" {
+#   metadata {
+#     name = "example"
+#     annotations = {
+#       "kubernetes.io/ingress.class" = "nginx"
+#     }
+#   }
+#   spec {
+#     rule {
+#       http {
+#         path {
+#           path = "/"
+#           path_type = "Prefix"
+#           backend {
+#             service {
+#               name = kubernetes_service.app.metadata.0.name
+#               port {
+#                 number = 5680
+#               }
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }
+# }
 
 
 

@@ -2,3 +2,4 @@
 *.hcl
 *.tfstate
 *.backup
+.DS_Store

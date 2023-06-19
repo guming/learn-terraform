@@ -20,29 +20,29 @@ resource "random_string" "rand4" {
 }
 
 # create repo of ecr
-module "ecr_example_complete" {
-  source  = "terraform-module/ecr/aws"
-  version = "1.0.3"
-  ecrs = {
-    api = {
-      tags = { Service = "api" }
-      lifecycle_policy = {
-        rules = [{
-          rulePriority = 1
-          description  = "keep last 50 images"
-          action = {
-            type = "expire"
-          }
-          selection = {
-            tagStatus   = "any"
-            countType   = "imageCountMoreThan"
-            countNumber = 10
-          }
-        }]
-      }
-    }
-  }
-}
+# module "ecr_example_complete" {
+#   source  = "terraform-module/ecr/aws"
+#   version = "1.0.3"
+#   ecrs = {
+#     api = {
+#       tags = { Service = "api" }
+#       lifecycle_policy = {
+#         rules = [{
+#           rulePriority = 1
+#           description  = "keep last 50 images"
+#           action = {
+#             type = "expire"
+#           }
+#           selection = {
+#             tagStatus   = "any"
+#             countType   = "imageCountMoreThan"
+#             countNumber = 10
+#           }
+#         }]
+#       }
+#     }
+#   }
+# }
 
 # vpc created
 module "vpc_subnet_module" {
@@ -221,7 +221,7 @@ resource "aws_security_group" "ingress_api" {
 
 resource "aws_appautoscaling_target" "ecs_target" {
   min_capacity       = 1
-  max_capacity       = 4
+  max_capacity       = 3
   resource_id        = "service/${aws_ecs_cluster.ecs_cluster.id}/${aws_ecs_service.ecs_service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"

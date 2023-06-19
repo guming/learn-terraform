@@ -32,7 +32,7 @@ variable "alb" {
     load_balancer_type = string
   })
   default = {
-    name               = "ghost-alb"
+    name               = "coca-alb"
     internal           = false
     load_balancer_type = "application"
   }
@@ -76,7 +76,7 @@ variable "vpc_subnet_module" {
 variable "tags" {
   type = map(any)
   default = {
-    name = "nodeapp"
+    name = "coca"
   }
 }
 
@@ -139,9 +139,9 @@ variable "ecs_task" {
   })
   default = {
     family                   = "ecs-task-family"
-    container_image_name     = "ghost"
-    container_image          = "ghost:alpine"
-    container_image_port     = 2368
+    container_image_name     = "coca"
+    container_image          = "552598673490.dkr.ecr.ap-southeast-1.amazonaws.com/coca:1.0"
+    container_image_port     = 8000
     cpu                      = 256
     memory                   = 512
     requires_compatibilities = ["FARGATE"]
@@ -158,7 +158,7 @@ variable "ecs_service" {
   default = {
     name            = "ecs_service"
     launch_type     = "FARGATE"
-    desired_count   = 3
+    desired_count   = 1
   }
 }
 
